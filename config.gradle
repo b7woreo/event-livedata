@@ -24,6 +24,8 @@ ext.deps = [
         "lifecycle"  : "androidx.lifecycle:lifecycle-runtime:$lifecycle_version",
         "appcompat"  : "androidx.appcompat:appcompat:1.0.0",
 
-        "test-runner": "androidx.test:runner:1.1.1",
-        "test-junit" : "androidx.test.ext:junit:1.1.0",
+        "junit"      : "junit:junit:4.12",
+        "robolectric": "org.robolectric:robolectric:4.2",
+        "mockito"    : "org.mockito:mockito-core:2.27.0",
+        "test-arch"  : "android.arch.core:core-testing:1.1.0"
 ]
