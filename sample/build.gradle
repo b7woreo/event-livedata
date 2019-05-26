@@ -19,7 +19,7 @@ android {
 }
 
 dependencies {
-    implementation project(":library")
-    implementation lib["appcompat"]
-    implementation lib["lifecycle-livedata"]
+    implementation project(':library')
+    implementation deps['appcompat']
+    implementation deps['livedata']
 }

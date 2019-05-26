@@ -9,7 +9,7 @@ android {
         targetSdkVersion rootProject.targetSdkVersion
         versionCode rootProject.versionCode
         versionName rootProject.versionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
@@ -19,10 +19,11 @@ android {
 }
 
 dependencies {
-    implementation lib["lifecycle-livedata"]
-    androidTestImplementation lib["junit"]
-    androidTestImplementation lib["test-runner"]
-    androidTestImplementation lib["lifecycle-runtime"]
+    implementation deps['livedata']
+
+    androidTestImplementation deps['lifecycle']
+    androidTestImplementation deps['test-runner']
+    androidTestImplementation deps['test-junit']
 }
 
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

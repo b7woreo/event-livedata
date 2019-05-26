@@ -6,7 +6,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath rootProject.plugin["android"]
+        classpath deps['android']
     }
 }
 
