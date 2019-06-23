@@ -9,7 +9,7 @@ install {
     repositories.mavenInstaller {
         pom {
             project {
-                name project.name
+                name project.archivesBaseName
                 description 'Lifecycle aware event source power by livedata.'
                 url 'https://github.com/cheie/event-livedata'
 
