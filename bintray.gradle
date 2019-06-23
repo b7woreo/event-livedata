@@ -39,7 +39,7 @@ bintray {
 
     pkg {
         repo = 'event-livedata'
-        name = project.name
+        name = project.archivesBaseName
         licenses = ['MIT']
         vcsUrl = 'https://github.com/cheie/event-livedata'
     }
