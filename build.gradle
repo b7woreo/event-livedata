@@ -6,7 +6,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath rootProject.plugin["android"]
+        classpath deps['android']
+        classpath deps['android-maven']
+        classpath deps['bintray']
     }
 }
 

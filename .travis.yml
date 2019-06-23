@@ -1,0 +1,31 @@
+language: android
+
+android:
+  components:
+  - tools
+  - platform-tools
+
+jdk:
+- oraclejdk8
+
+# as per http://blog.travis-ci.com/2014-12-17-faster-builds-with-container-based-infrastructure/
+sudo: false
+
+before_install:
+# Install SDK license so Android Gradle plugin can install deps.
+- mkdir "$ANDROID_HOME/licenses" || true
+- echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > "$ANDROID_HOME/licenses/android-sdk-license"
+
+# script for build and release via Travis to Bintray
+script:
+  - ./buildViaTravis.sh
+
+# cache between builds
+cache:
+  directories:
+  - $HOME/.gradle
+
+env:
+  global:
+  - secure: "piwHPN8zCMeU+PTPkbYhLc5mHlDG/alcnsWRhUFbZ8/XiHU28zSige0dn6DIPgspmRAgmwHGzi2b+I8Ui8Q1WQZhN07mFZlurFyqQD9pZ5KLM2OvIQC+gDe4g6fsIBbYn5terWVkDmjjEhkYyOO/7/eg+SfdPSjBrpkquLnZ9DzNqXvuTlvMpswTNt1SNfeHVOY+52q8l9fFvBuIBBFlOaDBKOZoMichZIuCAt/+ffJgcVxRM8cs+hBxylYroSjV/UExAFI6QaI9FuUYLwrCgUN28C1rp3Ii5ySXjyBJ7dV1N53EzfP+gtmLMIwQG7AXcL+I24UFmBPHUGpBOolGbwkp4tWS8g1bxsFw5SoC48QIFw5/soK4UfOh56aIa83udwuOZO/k/olY+ed2X7ZBEu9+phskRsEar/hV8ILWu0AIHfqvyxjVXKTlEaJ36NvmcvtKTxQquVy1hi3DyOt5APM4wWO2IKEDFoMADJKLg6SWNAVj2Q0DhRWFcfhWTAS6159rlDptI/2Zee6YOUF4Sr93dbt1XHVX0mIVGhgEEqiHPmUr8t6jYtP2w76KQVjcYg9HtXWLqembNR+pfmoL13Vho9Aklv2NuMN0/A9yIW8ASnsaJLDcNba6DYX/AnwZmnN+zx8RG58iZvZ7aQXno39OhBMBvtcx5OR5UZDcuY8="
+  - secure: "Hv3garYy4rdh6iW55xXfxrTja5tRpbzn5J54IvJ+lpQ4TfI+XkrtR5W6FOEy/Ge5SnW0D3lJTOv/TFBR87b2FHYh7UsfBJkhMQa+cXYmNueHjO6rMIYYGRrsEb6pJtHyCTo1LBVV+MC7PWGonbr6GR7r16oR6Pr1aiqtTUzJRQNEDQM1aHVkrTtbbkgSBaiodQL7ZRTR9ttPBoAhNYaNdvkn1C2vGVP5cGdgEKFkY4iPxHgVThSqkBCElPLJv/A/dnXCVTDZGrgUhAroJqW+pxuDQGrvmU+9hUdIADrtkP3d9yUusBcTQjBTJOmyV7GRppNFlpX0OxXpABsBvIdiHWrQNSsT1CA/d4tc/ckEnCdHc1AsKbgiRvwp1M/rnbxaJRficPNxnHq96ZQhP+Pv0Ae0wU23+0qfWJECM+j/J2hUJB8w1O5s5ooYRAykzx2RgSBy1md+hJK+y0l6y7UgxscztGfh6RCx+iqLXIBHUvbDkUcY7dU0jhQJysuqhe3+LihsjwQBdQ/b/sLpFUI1y1R8EtrylGeTIlPmJDlpiYrTIQlGigh9K3oGRJpo7kmvQiL2xWm/Oj2kzGwVvJBb7aDejLDDxgWK7F8q1nGGF1fQiKBH/UGDZ5xjwIW9Kq2kHNYRYNM5JkwmTdzmsze+avjXfgD3eW0wrNboT9F04PQ="

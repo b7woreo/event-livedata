@@ -1,18 +1,18 @@
 package com.chrnie.live.data;
 
-import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
 import android.os.Looper;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class EventLiveData<T> extends LiveData<T> {
 
-  private final Map<Observer<T>, Observer<T>> observers = new WeakHashMap<>();
+  private final Map<Observer<? super T>, Observer<? super T>> observers = new WeakHashMap<>();
 
   private final boolean sticky;
   private final AtomicReference<T> paddingValue = new AtomicReference<>(null);
@@ -75,10 +75,10 @@ public class EventLiveData<T> extends LiveData<T> {
   }
 
   @Override
-  public void observe(@NonNull LifecycleOwner owner, @NonNull Observer<T> observer) {
+  public void observe(@NonNull LifecycleOwner owner, @NonNull Observer<? super T> observer) {
     assertMainThread();
 
-    Observer<T> wrapper = observers.get(observer);
+    Observer<? super T> wrapper = observers.get(observer);
     if (wrapper == null) {
       wrapper = new WrapperObserver<>(observer);
       observers.put(observer, wrapper);
@@ -87,10 +87,10 @@ public class EventLiveData<T> extends LiveData<T> {
   }
 
   @Override
-  public void observeForever(@NonNull Observer<T> observer) {
+  public void observeForever(@NonNull Observer<? super T> observer) {
     assertMainThread();
 
-    Observer<T> wrapper = observers.get(observer);
+    Observer<? super T> wrapper = observers.get(observer);
     if (wrapper == null) {
       wrapper = new WrapperObserver<>(observer);
       observers.put(observer, wrapper);
@@ -99,19 +99,19 @@ public class EventLiveData<T> extends LiveData<T> {
   }
 
   @Override
-  public void removeObserver(@NonNull Observer<T> observer) {
+  public void removeObserver(@NonNull Observer<? super T> observer) {
     assertMainThread();
 
-    Observer<T> wrapper = observers.get(observer);
-    Observer<T> removed = wrapper == null ? observer : wrapper;
+    Observer<? super T> wrapper = observers.get(observer);
+    Observer<? super T> removed = wrapper == null ? observer : wrapper;
     super.removeObserver(removed);
   }
 
   private static class WrapperObserver<T> implements Observer<T> {
 
-    private final Observer<T> observer;
+    private final Observer<? super T> observer;
 
-    WrapperObserver(Observer<T> observer) {
+    WrapperObserver(Observer<? super T> observer) {
       this.observer = observer;
     }
 

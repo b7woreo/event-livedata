@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
 
+archivesBaseName = 'event-livedata'
+
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
@@ -7,22 +9,28 @@ android {
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode rootProject.versionCode
-        versionName rootProject.versionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
-    implementation lib["lifecycle-livedata"]
-    androidTestImplementation lib["junit"]
-    androidTestImplementation lib["test-runner"]
-    androidTestImplementation lib["lifecycle-runtime"]
+    implementation deps['livedata']
+
+    testImplementation deps['lifecycle']
+    testImplementation deps['junit']
+    testImplementation deps['robolectric']
+    testImplementation deps['mockito']
+    testImplementation deps['test-arch']
 }
 
-apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+apply from: rootProject.file('bintray.gradle')

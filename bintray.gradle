@@ -1,0 +1,66 @@
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+def getPropertyOrNull(String prop) {
+    return hasProperty(prop) ? getProperty(prop) : null
+}
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                name project.name
+                description 'Lifecycle aware event source power by livedata.'
+                url 'https://github.com/cheie/event-livedata'
+
+                licenses {
+                    license {
+                        name 'MIT'
+                        url 'https://opensource.org/licenses/mit-license'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'chrnie'
+                        name 'ChenRenJie'
+                    }
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    user = getPropertyOrNull('bintrayUser')
+    key = getPropertyOrNull('bintrayKey')
+    configurations = ['archives']
+
+    pkg {
+        repo = 'event-livedata'
+        name = project.name
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/cheie/event-livedata'
+    }
+}
+
+if (project.plugins.hasPlugin('com.android.library')) {
+    task androidSourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.source
+    }
+
+    artifacts {
+        archives androidSourcesJar
+    }
+} else {
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    artifacts {
+        archives sourcesJar
+    }
+}
