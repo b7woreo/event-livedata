@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
 
+archivesBaseName = 'event-livedata'
+
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
@@ -7,8 +9,6 @@ android {
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode rootProject.versionCode
-        versionName rootProject.versionName
     }
 
     compileOptions {
@@ -33,4 +33,4 @@ dependencies {
     testImplementation deps['test-arch']
 }
 
-apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+apply from: rootProject.file('bintray.gradle')

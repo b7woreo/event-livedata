@@ -7,6 +7,8 @@ buildscript {
     }
     dependencies {
         classpath deps['android']
+        classpath deps['android-maven']
+        classpath deps['bintray']
     }
 }
 

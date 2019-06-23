@@ -1,11 +1,6 @@
-def major = 1
-def minor = 0
-def patch = 0
-boolean release = true
-
-ext {
-    versionCode = major * 1000000 + minor * 10000 + patch
-    versionName = "${major}.${minor}.${patch}${release ? "" : "-SNAPSHOT"}"
+subprojects {
+    version = '1.0.0'
+    group = 'com.chrnie'
 }
 
 ext {
@@ -18,14 +13,16 @@ ext {
 def lifecycle_version = '2.0.0'
 
 ext.deps = [
-        "android"    : "com.android.tools.build:gradle:3.4.1",
+        "android"      : "com.android.tools.build:gradle:3.4.1",
+        "android-maven": "com.github.dcendents:android-maven-gradle-plugin:2.1",
+        "bintray"      : "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4",
 
-        "livedata"   : "androidx.lifecycle:lifecycle-livedata:$lifecycle_version",
-        "lifecycle"  : "androidx.lifecycle:lifecycle-runtime:$lifecycle_version",
-        "appcompat"  : "androidx.appcompat:appcompat:1.0.0",
+        "livedata"     : "androidx.lifecycle:lifecycle-livedata:$lifecycle_version",
+        "lifecycle"    : "androidx.lifecycle:lifecycle-runtime:$lifecycle_version",
+        "appcompat"    : "androidx.appcompat:appcompat:1.0.0",
 
-        "junit"      : "junit:junit:4.12",
-        "robolectric": "org.robolectric:robolectric:4.2",
-        "mockito"    : "org.mockito:mockito-core:2.27.0",
-        "test-arch"  : "android.arch.core:core-testing:1.1.0"
+        "junit"        : "junit:junit:4.12",
+        "robolectric"  : "org.robolectric:robolectric:4.2",
+        "mockito"      : "org.mockito:mockito-core:2.27.0",
+        "test-arch"    : "android.arch.core:core-testing:1.1.0"
 ]
